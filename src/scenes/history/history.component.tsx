@@ -3,7 +3,7 @@ import { ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import {
 	Divider,
 	List,
-	ListItem,
+	
 	Text,
 	TopNavigation,
 	TopNavigationAction,
@@ -11,16 +11,14 @@ import {
 	Card,
 
 } from '@ui-kitten/components';
-import { ThemedIcon } from '../../components/themed-icon.component';
 import { store } from '../../reducer';
 
-import { ArrowIosBackIcon, ArrowIosForwardIcon, AssetAuthIcon, AssetAuthDarkIcon, CameraIcon } from '../../components/icons';
+import { ArrowIosBackIcon } from '../../components/icons';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-import { WebBrowserService } from '../../services/web-browser.service';
 import { History } from './type';
 import I18n from '../../I18n/I18n';
 
-export const HistoryScreen = ({ navigation }): React.ReactElement => {
+export const  HistoryScreen = ({ navigation }): React.ReactElement => {
 	const state = useContext(store);
 
 	const theme = useTheme();

@@ -5,12 +5,9 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { LayoutsNavigator } from './layouts.navigator';
 import { ComponentsNavigator } from './components.navigator';
-import { ThemesNavigator } from './themes.navigator';
 import { HomeBottomNavigation } from '../scenes/home/home-bottom-navigation.component';
 import { HomeDrawer } from '../scenes/home/home-drawer.component';
-import { LibrariesScreen } from '../scenes/libraries/libraries.component';
 import { ServcieNavigator } from './service.navigator';
 import { HistoryScreen } from '../scenes/history/history.component';
 import { AddressScreen } from '../scenes/address/address.component';

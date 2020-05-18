@@ -12,14 +12,11 @@ import {
 	Button,
 
 } from '@ui-kitten/components';
-import { ThemedIcon } from '../../components/themed-icon.component';
 
-import { ArrowIosBackIcon, ArrowIosForwardIcon, AssetAuthIcon, AssetAuthDarkIcon, CameraIcon } from '../../components/icons';
+import { ArrowIosBackIcon, ArrowIosForwardIcon} from '../../components/icons';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-import { WebBrowserService } from '../../services/web-browser.service';
 import { Address } from './type';
 import I18n from '../../I18n/I18n';
-import { PlusIcon } from 'src/layouts/auth/sign-up-2/extra/icons';
 import { store } from '../../reducer';
 
 export const AddressScreen = ({ navigation }): React.ReactElement => {

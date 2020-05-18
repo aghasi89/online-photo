@@ -100,11 +100,16 @@ export const  getOrders = async  ():Promise<any>=>{
 	console.log(orders);
 	
 	return orders.data.results.map(res=>{
+		
+		
 	const packages = res.group_image.map((elem)=>{
 		return {size:elem.size_image_group.label, count:elem.images.length};
 	})
+
+		const amount=res.amount
+	
 const status=res.status?res.status.label:null
-	return {...res,packages,status}
+	return {...res,packages,status,amount}
 	})
 
 }

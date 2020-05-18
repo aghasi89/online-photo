@@ -42,24 +42,28 @@ export default (props): React.ReactElement => {
 			const element = groupImage[i];
 			t+=element.totalPrice
 		}
+		console.log(t);
+		
 		return t;
 	}
 	
 	const onAddButtonPress = (): void => {
-		console.log(address,comment,groupImage);
+		console.log("**************************",total()+dileveryCost());
 		const sebdInfo = {
 			order:{
 				address:address.value,
 				comment,
+				amount:total()+dileveryCost(),
 			},
 			group_image:groupImage.filter(group=>group.images.length>0).map((group:any)=>{
 				console.log("{{{{{{{{{{{{{{{{{{{{{{{{",group.amount,group.size.value,group.images);
 				
 				return  {quantity:group.amount, size:group.size.value,images:group.images.map(image=>image.imageID)}
-			})
+			}),
+			
 		}
 		createOrder(sebdInfo).then((res)=>{
-			console.log(res);
+			console.log("ppppppppppppppppppppppppppp",res);
 			props.navigation && props.navigation.popToTop();
 		}).catch((error)=>{
 console.log(error);
@@ -72,7 +76,7 @@ console.log(error);
 	};
 	const dileveryCost= ()=>{
 		let cost = 0;
-		console.log(address);
+		console.log("===================================",address,activeChecked);
 		
 		if(address && activeChecked){
 			for (let i = 0; i < state.cites.length; i++) {
@@ -80,10 +84,13 @@ console.log(error);
 				console.log(element.url,address.city);
 				
 				if(element.url==address.city){
+					console.log("----------------------------------------",element.delivery_price);
 					return element.delivery_price
 				}
 			}
 		}
+		console.log("----------------------------------------",cost);
+		
 		return cost 
 	}
 	return (

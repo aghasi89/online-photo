@@ -2,7 +2,7 @@ import React from 'react';
 import { BottomNavigationTab, Divider } from '@ui-kitten/components';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
 import { BrandBottomNavigation } from '../../components/brand-bottom-navigation.component';
-import { ColorPaletteIcon, LayoutIcon, BookIcon } from '../../components/icons';
+import {LayoutIcon, BookIcon } from '../../components/icons';
 import I18n from '../../I18n/I18n';
 
 export const HomeBottomNavigation = (props): React.ReactElement => {

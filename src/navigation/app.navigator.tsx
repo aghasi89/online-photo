@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, {  useState } from 'react';
 import { DefaultTheme, NavigationContainer, } from '@react-navigation/native';
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeNavigator } from './home.navigator';
-import { SignUp2Screen } from '../scenes/auth/sign-up-2.component';
 import { SignIn } from '../scenes/auth/sign-in';
 import { SignUp } from '../scenes/auth/sign-up';
 import { getData } from "../api/api";
