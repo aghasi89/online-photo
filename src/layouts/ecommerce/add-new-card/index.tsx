@@ -18,11 +18,12 @@ import { SelectShowcase } from "../../../scenes/components/select/select-showcas
 import I18n from '../../../I18n/I18n';
 import { store } from '../../../reducer';
 import { Product } from '../shopping-cart/extra/data';
+import { createOrder } from '../../../api/api';
 export default (props): React.ReactElement => {
 	console.log(props);
 	
 	const styles = useStyleSheet(themedStyles);
-	const {state} = useContext(store);
+	const state = useContext(store);
 	const [activeChecked, setActiveChecked] = React.useState(false);
 	const [address, setAddress] = React.useState<any>(null);
 	const [comment, setComment] = React.useState('');
@@ -45,8 +46,26 @@ export default (props): React.ReactElement => {
 	}
 	
 	const onAddButtonPress = (): void => {
-		console.log(props.navigation);
-		props.navigation && props.navigation.popToTop();
+		console.log(address,comment,groupImage);
+		const sebdInfo = {
+			order:{
+				address:address.value,
+				comment,
+			},
+			group_image:groupImage.filter(group=>group.images.length>0).map((group:any)=>{
+				console.log("{{{{{{{{{{{{{{{{{{{{{{{{",group.amount,group.size.value,group.images);
+				
+				return  {quantity:group.amount, size:group.size.value,images:group.images.map(image=>image.imageID)}
+			})
+		}
+		createOrder(sebdInfo).then((res)=>{
+			console.log(res);
+			props.navigation && props.navigation.popToTop();
+		}).catch((error)=>{
+console.log(error);
+
+		})
+		//
 	};
 	const onActiveCheckedChange = (isChecked) => {
 		setActiveChecked(isChecked);

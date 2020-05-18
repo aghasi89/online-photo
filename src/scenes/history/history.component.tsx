@@ -21,7 +21,7 @@ import { History } from './type';
 import I18n from '../../I18n/I18n';
 
 export const HistoryScreen = ({ navigation }): React.ReactElement => {
-	const {state} = useContext(store);
+	const state = useContext(store);
 
 	const theme = useTheme();
 	const renderBackAction = (): React.ReactElement => (
@@ -33,6 +33,8 @@ export const HistoryScreen = ({ navigation }): React.ReactElement => {
 
 
 	const calculateCount = (item:History)=>{
+		console.log("====================",item.packages);
+		
 		let count = 0;
 		for (let i = 0; i < item.packages.length; i++) {
 			const element = item.packages[i];
@@ -42,13 +44,18 @@ export const HistoryScreen = ({ navigation }): React.ReactElement => {
 	}
 
 	const renderItem = (info: ListRenderItemInfo<History>): React.ReactElement => (
+		
 		<Card
 			style={styles.item}
 		>
 			<View style={[styles.row]}>
-				<Text >
+				{info.item.status?<Text >
 					{`${I18n.t('status_'+info.item.status)}`}
-				</Text>
+				</Text>:
+				<Text >
+				No status
+				</Text>}
+				
 				<Text category='h4' >
 					{`${info.item.amount} ${I18n.t('amd')}`}
 				</Text>
@@ -90,6 +97,8 @@ export const HistoryScreen = ({ navigation }): React.ReactElement => {
 
 		</Card>
 	);
+	
+	
 	return (
 		<SafeAreaLayout
 			style={styles.safeArea}

@@ -16,7 +16,7 @@ import { HistoryScreen } from '../scenes/history/history.component';
 import { AddressScreen } from '../scenes/address/address.component';
 import { NewAddressScreen } from '../scenes/address/new-address.component';
 import { store } from '../reducer';
-import { getCites, getAddresses, getSizes, getOrders } from '../api/api';
+import { getCites, getAddresses, getSizes, getOrders,getStatus } from '../api/api';
 const BottomTab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -51,11 +51,20 @@ const HomeTabsNavigator = (): React.ReactElement => (
 );
 const collectDate = async (dispatch)=>{
 	
-	const cites = await getCites()
+	try{
+    const cites = await getCites()
 	const address = await getAddresses()
 	const sizes = await  getSizes()
-	const history = await  getOrders()
-	dispatch({ type: 'SET_ALL_DATA', payload: {history,sizes,address,cites} })
+  const history = await  getOrders()
+console.log("history",history);
+
+  dispatch({ type: 'SET_ALL_DATA', payload: {history,sizes,address,cites} })
+  }catch(error){
+    console.log("error",error)
+    
+  }
+  
+	
 }
 
 export const HomeNavigator = (): React.ReactElement => {
@@ -63,7 +72,9 @@ export const HomeNavigator = (): React.ReactElement => {
 	const [loaded,setLoaded] = useState(false);
 	if(!loaded){
 		setLoaded(true)
-		collectDate(dispatch).then(()=>{	
+		collectDate(dispatch).then((a)=>{	
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",a);
+      
 		})
 	}
 	

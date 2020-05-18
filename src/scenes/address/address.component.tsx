@@ -25,7 +25,7 @@ import { store } from '../../reducer';
 export const AddressScreen = ({ navigation }): React.ReactElement => {
 	
 	const theme = useTheme();
-	const {state} = useContext(store);
+	const state = useContext(store);
 
 	console.log(state);
 	

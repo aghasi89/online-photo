@@ -10,7 +10,8 @@ export const initialState: IStore = {
 		email: 'aghasi89@gmail.com',
 		avatar: ''
 	},
-	sizes: []
+	sizes: [],
+	dispatch:null
 	
 };
 export interface IStore {
@@ -24,6 +25,7 @@ export interface IStore {
 		avatar: string
 	},
 	sizes: any[]
+	dispatch:any
 }
 
 const store = createContext(initialState);
@@ -44,6 +46,8 @@ const StateProvider = ({ children }) => {
 				
 				return { ...state, cites: [...action.payload] };
 			case 'SET_ORDERS':
+				console.log("history",action.payload);
+				
 				return { ...state, history: [...action.payload] };
 			case 'SET_SIZES':
 				return { ...state, sizes: [...action.payload] }
@@ -52,7 +56,7 @@ const StateProvider = ({ children }) => {
 		};
 	}, initialState);
 
-	return <Provider value={{ state, dispatch }}>{children}</Provider>;
+	return <Provider value={{...state,dispatch}}>{children}</Provider>;
 };
 
 export { store, StateProvider }

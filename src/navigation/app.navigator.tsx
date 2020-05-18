@@ -23,11 +23,14 @@ const Stack = createStackNavigator();
 export const AppNavigator = (): React.ReactElement => {
 	const [loginIn,setLoginIn] = useState(false)
 	getData('token').then(res=>{
+		console.log(!!res);
 		setLoginIn(!!res);
 	})
+	console.log("=====",loginIn);
+	
 	return (
 		<NavigationContainer theme={navigatorTheme} >
-			{loginIn?<Stack.Navigator headerMode='none'>
+			{!loginIn?<Stack.Navigator headerMode='none'>
 				<Stack.Screen name="Login" component={SignIn} />
 				<Stack.Screen name="SignUp" component={SignUp} />
 				<Stack.Screen name="Main" component={HomeNavigator} />
