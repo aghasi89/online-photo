@@ -22,8 +22,8 @@ export default ({ navigation }): React.ReactElement => {
 	
 	const styles = useStyleSheet(themedStyles);
 
-	const {state,dispatch} = useContext(store);
-	
+	const state = useContext(store);
+	const {dispatch} = state
 	const [address, setAddress] = React.useState<string>('');
 	const [benefit, setBenefit] = React.useState<string>('');
 	const [city, setCity] = React.useState<any>(null);

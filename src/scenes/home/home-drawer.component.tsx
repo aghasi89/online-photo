@@ -12,9 +12,8 @@ import {
   MenuItemType,
   Text,
 } from '@ui-kitten/components';
-import { BookIcon, GithubIcon, AddressIcon } from '../../components/icons';
+import { BookIcon, AddressIcon } from '../../components/icons';
 import { SafeAreaLayout } from '../../components/safe-area-layout.component';
-import { WebBrowserService } from '../../services/web-browser.service';
 import { AppInfoService } from '../../services/app-info.service';
 import I18n from '../../I18n/I18n';
 

@@ -56,14 +56,29 @@ export const CartItem = (props: CartItemProps): React.ReactElement => {
 			height: 400,
 			cropping: true,
 			includeBase64:true
-		}).then((image: any[]) => {
+		}).then((images: any[]) => {
 			setIsOpen(true)
-			product.images= [...product.images,...image]
-			uploadPhoto(image[0]) //////   comment for Anna, bdi upload exnin zangvatsov es nkarnery
-			if(product.amount==0){
-				product.amount = 1;
+			let cout = 0;
+			for (let i = 0; i < images.length; i++) {
+				uploadPhoto(images[i]).then(res=>{
+
+					images[i].imageID  = res.url;
+					images[i].data = ""
+					cout++
+					console.log(cout,images.length);
+					
+					if(cout==images.length){
+						product.images= [...product.images,...images]
+						if(product.amount==0){
+							product.amount = 1;
+						}
+						onProductChange(product, index);
+					}
+						
+				})
 			}
-			onProductChange(product, index);
+			 //////   comment for Anna, bdi upload exnin zangvatsov es nkarnery
+			
 			//setImage(image)
 		});
 	}
@@ -79,7 +94,6 @@ export const CartItem = (props: CartItemProps): React.ReactElement => {
 		product.amount++;
 		onProductChange(product, index);
 	};
-	console.log(product.size);
 	
 	return (
 		<ListItem

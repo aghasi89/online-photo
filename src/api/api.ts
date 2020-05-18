@@ -10,6 +10,8 @@ export const  getCites = async  ():Promise<any>=>{
 export const  getSizes = async  ():Promise<any>=>{
 	let sizes = await axios.get(BASE_URL+'size/');
 	return sizes.data.results.map(item=>{
+		console.log(item);
+		
 		return {text:item.label, value:item.url,price:item.price}
 	})
 }
@@ -46,26 +48,26 @@ export const  signin = async  (data:any):Promise<any>=>{
 	return signin.data
 }
 export const  createOrder = async  (data:any):Promise<any>=>{
+	
+	try {
+		const userId = (await getData('user')).id
+	data.order.client = `${BASE_URL}client/${userId}/`
+	console.log(";;;;;;;;;;;;",data);
 	let sizes = await axios.post(BASE_URL+'client-create/order/',data);
-	return sizes.data.results
+	
+	
+	return sizes.data
+	} catch (error) {
+		console.log(error);
+		return error
+	}
 }
 export const  uploadPhoto = async  (data:any):Promise<any>=>{
 	try {
-		const form:FormData = new FormData();
-		console.log(data);
-		const file:any = { uri: data.data, name: data.modificationDate+"_image.", type: data.mime }
-		form.append('path',file)
-		let sizes = await axios.post(BASE_URL+'image/',form,{
-			headers: {
-			//	Accept: 'application/json',
-				'Content-Type': 'multipart/form-data',
-			},
-			onUploadProgress: (event)=>{
-				console.log(event);
-				
-			}});
+		
+		let sizes = await axios.post(BASE_URL+'image/',{path:data.data});
 		console.log(sizes);
-		return sizes.data.results
+		return sizes.data
 	} catch (error) {
 		console.log(error);
 		
@@ -82,7 +84,7 @@ export const  getMe = async  ():Promise<any>=>{
 	{ headers: { Authorization: `Bearer ${token}` }});
 	await storeData('user',me.data.data)
 	return me.data.data
-}
+} 
 
 export const  getAddresses = async  ():Promise<any>=>{
 	const userId = (await getData('user')).id
@@ -94,10 +96,37 @@ export const  getOrders = async  ():Promise<any>=>{
 	const userId = (await getData('user')).id
 	console.log(userId);
 	
-	let addresses = await axios.get(BASE_URL+'order/?client='+userId);
-	console.log(addresses);
+	let orders = await axios.get(BASE_URL+'order/?client='+userId);
+	console.log(orders);
 	
-	return addresses.data.results
+	return orders.data.results.map(res=>{
+		
+		
+	const packages = res.group_image.map((elem)=>{
+		return {size:elem.size_image_group.label, count:elem.images.length};
+	})
+
+		const amount=res.amount
+	
+const status=res.status?res.status.label:null
+	return {...res,packages,status,amount}
+	})
+
+}
+export const  getStatus = async  ():Promise<any>=>{
+	const userId = (await getData('user')).id
+	console.log(userId);
+	
+	let status = await axios.get(BASE_URL+'order/?client='+userId);
+	console.log(status.data.results);
+	
+	return status.data.results.map(res=>{
+		console.log(res);
+		
+	const status={status:res.status.label} 
+	return status
+	})
+
 }
 export const  addAddress = async  (date):Promise<any>=>{
 	
